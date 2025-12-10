@@ -5,6 +5,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/Color-Canvas/',  // GitHub Pages serves from repo name subdirectory
   plugins: [
     vue(),
     VitePWA({
