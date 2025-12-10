@@ -5,7 +5,8 @@ import { fileURLToPath, URL } from 'node:url'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/Color-Canvas/',  // GitHub Pages serves from repo name subdirectory
+  // GitHub Pages needs '/Color-Canvas/', Vercel/Netlify need '/'
+  base: process.env.GITHUB_ACTIONS ? '/Color-Canvas/' : '/',
   plugins: [
     vue(),
     VitePWA({
