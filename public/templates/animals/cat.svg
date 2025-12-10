@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Simple cat coloring page -->
+  <g fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <ellipse cx="400" cy="380" rx="180" ry="200"/>
+    
+    <!-- Head -->
+    <circle cx="400" cy="200" r="120"/>
+    
+    <!-- Left ear -->
+    <path d="M 320 120 L 280 40 L 360 140 Z"/>
+    
+    <!-- Right ear -->
+    <path d="M 480 120 L 520 40 L 440 140 Z"/>
+    
+    <!-- Left eye -->
+    <circle cx="360" cy="180" r="18"/>
+    <circle cx="365" cy="175" r="8" fill="#000000"/>
+    
+    <!-- Right eye -->
+    <circle cx="440" cy="180" r="18"/>
+    <circle cx="445" cy="175" r="8" fill="#000000"/>
+    
+    <!-- Nose -->
+    <path d="M 400 210 L 390 225 L 410 225 Z" fill="#000000"/>
+    
+    <!-- Mouth -->
+    <path d="M 400 225 Q 380 240 365 230"/>
+    <path d="M 400 225 Q 420 240 435 230"/>
+    
+    <!-- Whiskers left -->
+    <line x1="280" y1="200" x2="340" y2="200"/>
+    <line x1="280" y1="210" x2="340" y2="210"/>
+    <line x1="280" y1="220" x2="340" y2="220"/>
+    
+    <!-- Whiskers right -->
+    <line x1="520" y1="200" x2="460" y2="200"/>
+    <line x1="520" y1="210" x2="460" y2="210"/>
+    <line x1="520" y1="220" x2="460" y2="220"/>
+    
+    <!-- Front legs -->
+    <rect x="340" y="500" width="40" height="80" rx="10"/>
+    <rect x="420" y="500" width="40" height="80" rx="10"/>
+    
+    <!-- Tail -->
+    <path d="M 550 350 Q 600 300 620 280 Q 640 260 650 290"/>
+  </g>
+</svg>

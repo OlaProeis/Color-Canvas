@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6C63FF"/>
+      <stop offset="100%" style="stop-color:#8b5cf6"/>
+    </linearGradient>
+    <linearGradient id="paletteGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF"/>
+      <stop offset="100%" style="stop-color:#F0F0FF"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="256" cy="256" r="256" fill="url(#bgGradient)"/>
+  
+  <!-- Paint palette shape -->
+  <ellipse cx="256" cy="270" rx="160" ry="130" fill="url(#paletteGradient)" transform="rotate(-15, 256, 270)"/>
+  
+  <!-- Thumb hole -->
+  <ellipse cx="320" cy="320" rx="35" ry="30" fill="url(#bgGradient)" transform="rotate(-15, 320, 320)"/>
+  
+  <!-- Paint colors on palette -->
+  <!-- Red -->
+  <circle cx="180" cy="200" r="28" fill="#FF6B6B"/>
+  <!-- Orange -->
+  <circle cx="250" cy="175" r="28" fill="#FFB347"/>
+  <!-- Yellow -->
+  <circle cx="320" cy="185" r="28" fill="#FFD93D"/>
+  <!-- Green -->
+  <circle cx="370" cy="230" r="28" fill="#6BCB77"/>
+  <!-- Blue -->
+  <circle cx="175" cy="280" r="28" fill="#4FC3F7"/>
+  <!-- Purple -->
+  <circle cx="230" cy="320" r="28" fill="#8B85FF"/>
+  
+  <!-- Paintbrush -->
+  <g transform="translate(80, 100) rotate(-45, 100, 100)">
+    <!-- Brush handle -->
+    <rect x="160" y="80" width="140" height="24" rx="4" fill="#8B4513"/>
+    <rect x="160" y="80" width="140" height="8" rx="4" fill="#A0522D"/>
+    <!-- Ferrule (metal part) -->
+    <rect x="130" y="76" width="35" height="32" rx="2" fill="#C0C0C0"/>
+    <rect x="130" y="76" width="35" height="10" rx="2" fill="#E8E8E8"/>
+    <!-- Brush bristles -->
+    <path d="M70,92 Q100,70 130,92 L130,92 Q100,114 70,92 Z" fill="#FFD93D"/>
+    <path d="M75,92 Q100,75 125,92" stroke="#E6C236" stroke-width="3" fill="none"/>
+  </g>
+</svg>
+

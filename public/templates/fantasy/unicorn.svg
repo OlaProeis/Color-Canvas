@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <!-- Simple unicorn coloring page -->
+  <g fill="none" stroke="#000000" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Body -->
+    <ellipse cx="450" cy="380" rx="160" ry="140"/>
+    
+    <!-- Head -->
+    <ellipse cx="280" cy="300" rx="90" ry="110"/>
+    
+    <!-- Neck connecting head to body -->
+    <path d="M 340 320 Q 380 340 390 360"/>
+    <path d="M 310 380 Q 350 390 380 400"/>
+    
+    <!-- Horn (spiral) -->
+    <path d="M 280 190 L 270 140 Q 275 120 280 130 Q 275 140 280 145 Q 278 150 280 155 Q 278 165 280 175 Q 278 185 280 190"/>
+    
+    <!-- Ear -->
+    <path d="M 250 230 L 230 210 L 260 240"/>
+    
+    <!-- Eye -->
+    <circle cx="290" cy="290" r="12"/>
+    <circle cx="293" cy="287" r="5" fill="#000000"/>
+    
+    <!-- Nostril -->
+    <circle cx="240" cy="330" r="6"/>
+    
+    <!-- Mouth -->
+    <path d="M 230 350 Q 240 360 250 355"/>
+    
+    <!-- Mane (flowing) -->
+    <path d="M 270 240 Q 260 220 250 200 Q 240 180 230 160"/>
+    <path d="M 285 250 Q 280 230 275 210 Q 270 190 265 170"/>
+    <path d="M 300 260 Q 300 240 300 220 Q 300 200 300 180"/>
+    <path d="M 315 270 Q 320 250 325 230 Q 330 210 335 190"/>
+    
+    <!-- Legs -->
+    <rect x="380" y="480" width="30" height="100" rx="8"/>
+    <rect x="440" y="480" width="30" height="100" rx="8"/>
+    <rect x="500" y="480" width="30" height="100" rx="8"/>
+    <rect x="560" y="480" width="30" height="100" rx="8"/>
+    
+    <!-- Hooves -->
+    <ellipse cx="395" cy="575" rx="20" ry="10" fill="#000000"/>
+    <ellipse cx="455" cy="575" rx="20" ry="10" fill="#000000"/>
+    <ellipse cx="515" cy="575" rx="20" ry="10" fill="#000000"/>
+    <ellipse cx="575" cy="575" rx="20" ry="10" fill="#000000"/>
+    
+    <!-- Tail (flowing) -->
+    <path d="M 600 360 Q 650 340 680 360 Q 700 380 690 400 Q 680 420 660 410 Q 640 400 650 380"/>
+    <path d="M 605 380 Q 640 390 665 400 Q 685 410 690 430"/>
+    
+    <!-- Stars decorative -->
+    <path d="M 150 100 L 155 110 L 165 110 L 157 116 L 160 126 L 150 120 L 140 126 L 143 116 L 135 110 L 145 110 Z" fill="none"/>
+    <path d="M 650 80 L 655 90 L 665 90 L 657 96 L 660 106 L 650 100 L 640 106 L 643 96 L 635 90 L 645 90 Z" fill="none"/>
+  </g>
+</svg>

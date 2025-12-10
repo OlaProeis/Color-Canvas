@@ -1,0 +1,11 @@
+// Barrel file for component exports
+export { default as BaseButton } from './BaseButton.vue'
+export { default as Canvas } from './Canvas.vue'
+export { default as ColorPalette } from './ColorPalette.vue'
+export { default as ConfirmDialog } from './ConfirmDialog.vue'
+export { default as TemplateLibrary } from './TemplateLibrary.vue'
+export { default as StampPicker } from './StampPicker.vue'
+export { default as MagicGenerator } from './MagicGenerator.vue'
+export { default as GeneratorPreview } from './GeneratorPreview.vue'
+export { default as BackgroundSelector } from './BackgroundSelector.vue'
+export type { CanvasRef } from './Canvas.vue'

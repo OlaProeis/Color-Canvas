@@ -1,0 +1,155 @@
+/* ==========================================================================
+   Design System - Color Canvas
+   A kid-friendly drawing app
+   ========================================================================== */
+
+:root {
+  /* Typography */
+  font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+
+  /* ========== Colors ========== */
+  /* Primary palette - vibrant and playful */
+  --color-primary: #38BDF8;           /* Sky blue - main brand */
+  --color-primary-light: #7DD3FC;
+  --color-primary-dark: #0EA5E9;
+  
+  --color-secondary: #FF6B9D;         /* Pink - accent */
+  --color-secondary-light: #FF8FB4;
+  --color-secondary-dark: #E5567F;
+  
+  --color-accent: #FFD93D;            /* Yellow - highlights */
+  --color-accent-light: #FFE566;
+  --color-accent-dark: #E6C236;
+  
+  /* Semantic colors */
+  --color-success: #6BCB77;           /* Green */
+  --color-warning: #FFB347;           /* Orange */
+  --color-danger: #FF6B6B;            /* Red */
+  
+  /* Neutral palette */
+  --color-background: #F8F9FE;        /* Very light blue-gray */
+  --color-surface: #FFFFFF;           /* White */
+  --color-surface-elevated: #FFFFFF;
+  --color-border: #E2E8F0;            /* Light gray-blue */
+  --color-border-strong: #D0D0E0;
+  
+  /* Text colors */
+  --color-text: #2D3748;              /* Dark gray-blue */
+  --color-text-secondary: #718096;    /* Medium gray */
+  --color-text-muted: #A0AEC0;        /* Light gray */
+  --color-text-on-primary: #FFFFFF;
+  --color-text-on-dark: #FFFFFF;
+
+  /* ========== Spacing ========== */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+
+  /* ========== Border Radius ========== */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ========== Shadows ========== */
+  --shadow-sm: 0 2px 4px rgba(56, 189, 248, 0.08);
+  --shadow-md: 0 4px 12px rgba(56, 189, 248, 0.12);
+  --shadow-lg: 0 8px 24px rgba(56, 189, 248, 0.16);
+  --shadow-glow: 0 0 20px rgba(56, 189, 248, 0.25);
+
+  /* ========== Transitions ========== */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s ease;
+  --transition-slow: 0.4s ease;
+
+  /* ========== Typography Scale ========== */
+  --font-size-xs: 0.75rem;     /* 12px */
+  --font-size-sm: 0.875rem;    /* 14px */
+  --font-size-base: 1rem;      /* 16px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-xl: 1.25rem;     /* 20px */
+  --font-size-2xl: 1.5rem;     /* 24px */
+  --font-size-3xl: 2rem;       /* 32px */
+
+  /* ========== Touch Targets ========== */
+  --touch-target-min: 44px;    /* Accessibility minimum */
+  --touch-target-comfortable: 48px;
+}
+
+/* ==========================================================================
+   Base Reset & Global Styles
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-background);
+}
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   Utility Classes
+   ========================================================================== */
+
+/* Visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus visible styling */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Scrollbar Styling (for kids - fun and colorful)
+   ========================================================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-border);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
