@@ -241,7 +241,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useDrawingStore } from './stores'
 import {
   BaseButton,
@@ -796,8 +796,29 @@ const saveAsPng = () => {
   }
 }
 
+// Warn user before leaving if there's unsaved work
+const hasUnsavedWork = () => {
+  return drawingStore.shapeCount > 0 || drawingStore.fills.length > 0
+}
+
+const handleBeforeUnload = (e: Event) => {
+  if (hasUnsavedWork()) {
+    // Standard way to trigger browser's "Leave site?" dialog
+    e.preventDefault()
+    // Some browsers require returnValue to be set (BeforeUnloadEvent property)
+    ;(e as unknown as { returnValue: string }).returnValue = ''
+    return ''
+  }
+}
+
 onMounted(() => {
-  // Canvas ref and store are available after mount
+  // Add beforeunload listener to warn about unsaved work
+  window.addEventListener('beforeunload', handleBeforeUnload)
+})
+
+// Clean up listener on unmount
+onUnmounted(() => {
+  window.removeEventListener('beforeunload', handleBeforeUnload)
 })
 </script>
 
