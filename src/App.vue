@@ -225,6 +225,18 @@
       @confirm="confirmTemplateLoad"
       @cancel="cancelTemplateLoad"
     />
+
+    <!-- Welcome Modal -->
+    <WelcomeModal ref="welcomeModalRef" />
+
+    <!-- Info Button (bottom right) -->
+    <button class="info-btn" @click="openWelcomeModal" title="About Color Canvas">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path
+          d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"
+        />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -240,6 +252,7 @@ import {
   StampPicker,
   MagicGenerator,
   BackgroundSelector,
+  WelcomeModal,
   type CanvasRef,
 } from './components'
 import type { TemplateDefinition, GenerationResult } from './types'
@@ -248,6 +261,12 @@ const drawingStore = useDrawingStore()
 const canvasRef = ref<CanvasRef | null>(null)
 const showClearConfirm = ref(false)
 const magicGeneratorRef = ref<InstanceType<typeof MagicGenerator> | null>(null)
+const welcomeModalRef = ref<InstanceType<typeof WelcomeModal> | null>(null)
+
+// Open welcome modal
+const openWelcomeModal = () => {
+  welcomeModalRef.value?.open()
+}
 
 // Template Library state
 const showTemplateLibrary = ref(false)
@@ -1427,6 +1446,49 @@ onMounted(() => {
 
   .sidebar-section {
     min-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Info Button (Bottom Right)
+   ========================================================================== */
+
+.info-btn {
+  position: fixed;
+  bottom: var(--spacing-md);
+  right: var(--spacing-md);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+  transition: all var(--transition-fast);
+  z-index: 50;
+}
+
+.info-btn:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: white;
+  transform: scale(1.1);
+}
+
+.info-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 640px) {
+  .info-btn {
+    width: 36px;
+    height: 36px;
+    bottom: var(--spacing-sm);
+    right: var(--spacing-sm);
   }
 }
 </style>

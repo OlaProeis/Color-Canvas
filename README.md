@@ -4,11 +4,17 @@ A kid-friendly drawing and coloring web app where children can draw shapes, colo
 
 **Version:** 0.1.0-beta
 
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Try_Now-38BDF8?style=for-the-badge)](https://color-canvas-smoky.vercel.app/)
+
 ![Vue 3](https://img.shields.io/badge/Vue-3.5-42b883?logo=vue.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.4-3178c6?logo=typescript)
 ![Vite](https://img.shields.io/badge/Vite-5.3-646cff?logo=vite)
 ![PWA](https://img.shields.io/badge/PWA-Ready-5A0FC8?logo=pwa)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
+
+## Live Demo
+
+**[https://color-canvas-smoky.vercel.app/](https://color-canvas-smoky.vercel.app/)**
 
 ## Features
 
