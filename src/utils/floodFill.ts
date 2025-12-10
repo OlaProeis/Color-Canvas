@@ -43,32 +43,30 @@ function colorsMatch(
  */
 function isStrokeColor(r: number, g: number, b: number, a: number): boolean {
   // Transparent pixels are NOT strokes - they're empty/fillable areas
-  // This is critical for the dual canvas architecture where white becomes transparent
   if (a < 128) {
     return false
   }
   // Only reject if ALL channels are below 20 (very close to pure black #000000)
-  // This allows dark colors like #212529 (33, 37, 41) to be filled
   return r < 20 && g < 20 && b < 20
 }
 
 /**
- * Check if a color is near a stroke (dark, semi-opaque pixel that could be anti-aliased edge)
- * This catches the anti-aliased edges of strokes that aren't pure black
+ * Check if a color is an anti-aliased stroke edge (dark with medium alpha)
+ * These are the gray/semi-transparent pixels at stroke borders
  */
-function isNearStroke(r: number, g: number, b: number, a: number): boolean {
-  // Very transparent pixels are not near strokes
-  if (a < 64) {
+function isStrokeEdge(r: number, g: number, b: number, a: number): boolean {
+  // Very transparent = not a stroke edge
+  if (a < 50) {
     return false
   }
-  // Dark pixels with decent alpha are likely stroke edges
-  // This catches anti-aliased edges (e.g., RGB 30-80 with alpha 100-200)
+  // Dark pixel with some alpha = likely anti-aliased stroke edge
   const brightness = (r + g + b) / 3
-  return brightness < 60 && a > 100
+  return brightness < 40 && a > 80
 }
 
 /**
- * Check if any neighboring pixel is a stroke (for leak prevention)
+ * Check if any neighboring pixel is a solid stroke (for start position check only)
+ * This prevents starting fills on thin white lines between strokes
  */
 function hasStrokeNeighbor(
   data: Uint8ClampedArray,
@@ -77,36 +75,34 @@ function hasStrokeNeighbor(
   width: number,
   height: number
 ): boolean {
-  // Check 8-connected neighbors
+  // Check 4-connected neighbors (more lenient than 8-connected)
   const neighbors = [
-    [-1, -1],
-    [0, -1],
-    [1, -1],
-    [-1, 0],
-    [1, 0],
-    [-1, 1],
-    [0, 1],
-    [1, 1],
+    [0, -1], // top
+    [0, 1], // bottom
+    [-1, 0], // left
+    [1, 0], // right
   ]
 
+  let strokeNeighborCount = 0
   for (const [dx, dy] of neighbors) {
     const nx = x + dx
     const ny = y + dy
     if (nx >= 0 && nx < width && ny >= 0 && ny < height) {
       const idx = (ny * width + nx) * 4
       if (isStrokeColor(data[idx], data[idx + 1], data[idx + 2], data[idx + 3])) {
-        return true
+        strokeNeighborCount++
       }
     }
   }
-  return false
+  // Only block if MULTIPLE stroke neighbors (indicates a thin line between strokes)
+  return strokeNeighborCount >= 2
 }
 
 /**
  * Options for flood fill operation
  */
 export interface FloodFillOptions {
-  /** Color matching tolerance (0-255). Higher values fill more anti-aliased edge pixels. Default: 48 */
+  /** Color matching tolerance (0-255). Higher values fill more anti-aliased edge pixels. Default: 80 */
   tolerance?: number
   /** Optional fill mask to track which pixels have been filled (for transparency preservation) */
   fillMask?: Uint8Array
@@ -131,7 +127,7 @@ export function floodFill(
 ): number {
   // Support legacy signature: floodFill(ctx, x, y, color, tolerance)
   const opts: FloodFillOptions = typeof options === 'number' ? { tolerance: options } : options
-  const tolerance = opts.tolerance ?? 48 // Reduced from 64 to prevent stroke edge leaking
+  const tolerance = opts.tolerance ?? 80 // Higher tolerance fills anti-aliased edges better
   const fillMask = opts.fillMask
   const canvas = ctx.canvas
   const dpr = window.devicePixelRatio || 1
@@ -164,12 +160,12 @@ export function floodFill(
   }
 
   // SAFEGUARD 2: Don't fill if clicking on anti-aliased stroke edge
-  if (isNearStroke(startR, startG, startB, startA)) {
+  if (isStrokeEdge(startR, startG, startB, startA)) {
     return 0
   }
 
-  // SAFEGUARD 3: Don't fill if the clicked pixel is adjacent to a stroke
-  // This prevents filling thin white lines between strokes
+  // SAFEGUARD 3: Don't fill if clicking on a thin white line between strokes
+  // (pixel has multiple stroke neighbors)
   if (hasStrokeNeighbor(data, physicalX, physicalY, width, height)) {
     return 0
   }
@@ -186,12 +182,12 @@ export function floodFill(
     return 0
   }
 
-  // SAFEGUARD 4: Maximum fill area (15% of canvas) - reduced from 30%
+  // SAFEGUARD 4: Maximum fill area (20% of canvas)
   const totalPixels = width * height
-  const maxFillPixels = Math.floor(totalPixels * 0.15)
+  const maxFillPixels = Math.floor(totalPixels * 0.2)
 
   // SAFEGUARD 5: Maximum stack size to prevent memory exhaustion
-  const maxStackSize = 500000 // 500K entries max
+  const maxStackSize = 500000
 
   // Scanline flood fill algorithm
   const stack: [number, number][] = [[physicalX, physicalY]]
@@ -220,14 +216,14 @@ export function floodFill(
     const b = data[pixelIdx + 2]
     const a = data[pixelIdx + 3]
 
-    // Check if this pixel matches the target color
-    if (!colorsMatch(r, g, b, a, startR, startG, startB, startA, tolerance)) {
+    // SAFEGUARD 7: Don't fill stroke pixels (they're the boundaries)
+    if (isStrokeColor(r, g, b, a)) {
+      visited[idx] = 1
       continue
     }
 
-    // SAFEGUARD 7: Don't fill pixels adjacent to strokes (prevents edge leaking)
-    if (hasStrokeNeighbor(data, x, y, width, height)) {
-      visited[idx] = 1 // Mark as visited but don't fill
+    // Check if this pixel matches the target color (within tolerance)
+    if (!colorsMatch(r, g, b, a, startR, startG, startB, startA, tolerance)) {
       continue
     }
 
@@ -245,7 +241,7 @@ export function floodFill(
       break
     }
 
-    // Add neighbors to stack (4-connected for tighter fill)
+    // Add neighbors to stack (4-connected)
     stack.push([x + 1, y])
     stack.push([x - 1, y])
     stack.push([x, y + 1])
